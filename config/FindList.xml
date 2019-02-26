@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data version="0" size="13">
+    <findlist name="all">
+        <item graphic="0xFFFF" color="0xFFFF" comment="ANY"/>
+    </findlist>
+    <findlist name="shrinkMounts">
+        <item graphic="0x211F" color="0xFFFF" comment="???"/>
+        <item graphic="0x2121" color="0xFFFF" comment="???"/>
+        <item graphic="0x2124" color="0xFFFF" comment="???"/>
+        <item graphic="0x20F6" color="0xFFFF" comment="???"/>
+        <item graphic="0x2135" color="0xFFFF" comment="???"/>
+        <item graphic="0x2136" color="0xFFFF" comment="???"/>
+        <item graphic="0x2137" color="0xFFFF" comment="???"/>
+    </findlist>
+    <findlist name="petlvl1">
+        <item graphic="0x20D0" color="0x0000" comment="Giant Rat"/>
+        <item graphic="0x2123" color="0x01BB" comment="Sewer Rat"/>
+        <item graphic="0x2123" color="0x01BB" comment="Rat"/>
+        <item graphic="0x20D1" color="0x0000" comment="Chicken"/>
+        <item graphic="0x2125" color="0x090C" comment="Rabbit"/>
+    </findlist>
+    <findlist name="petlvl2">
+        <item graphic="0x2D97" color="0x0000" comment="Squirrel"/>
+        <item graphic="0x211B" color="0x0900" comment="Cat"/>
+        <item graphic="0x2125" color="0x01BB" comment="Jackrabbit"/>
+        <item graphic="0x211B" color="0x0001" comment="Black Cat"/>
+        <item graphic="0x20EA" color="0x03B2" comment="Gray Wolf"/>
+        <item graphic="0x2108" color="0x0000" comment="Goat"/>
+        <item graphic="0x09A8" color="0x0905" comment="Dog"/>
+        <item graphic="0x2101" color="0x0000" comment="Boar"/>
+        <item graphic="0x2108" color="0x0481" comment="Mountain Goat"/>
+        <item graphic="0x2130" color="0x0000" comment="Bull Frog"/>
+    </findlist>
+    <findlist name="petlvl3">
+        <item graphic="0x2118" color="0x0901" comment="Black Bear"/>
+        <item graphic="0x20EF" color="0x01BB" comment="Bull"/>
+        <item graphic="0x20D4" color="0x0000" comment="Hind"/>
+        <item graphic="0x20D4" color="0x0000" comment="Hart"/>
+        <item graphic="0x20F5" color="0x0000" comment="Gorilla"/>
+        <item graphic="0x20EB" color="0x08FD" comment="Sheep"/>
+        <item graphic="0x2103" color="0x0000" comment="Cow"/>
+        <item graphic="0x20CF" color="0x01BB" comment="Brown Bear"/>
+    </findlist>
+    <findlist name="petlvl4">
+        <item graphic="0x2119" color="0x0901" comment="Panther"/>
+        <item graphic="0x2119" color="0x0000" comment="Cougar"/>
+        <item graphic="0x211D" color="0x0000" comment="Eagle"/>
+        <item graphic="0x20EA" color="0x0000" comment="Timber Wolf"/>
+    </findlist>
+    <findlist name="petlvl5">
+        <item graphic="0x2119" color="0x0972" comment="Leopard"/>
+        <item graphic="0x20E1" color="0x08FD" comment="Polar Bear"/>
+        <item graphic="0x211E" color="0x0000" comment="grizzly bear"/>
+        <item graphic="0x20FC" color="0x07D3" comment="Snake"/>
+        <item graphic="0x2131" color="0x0000" comment="Alligator"/>
+    </findlist>
+    <findlist name="openDoors">
+        <item graphic="0x06AE" color="0xFFFF" comment=""/>
+        <item graphic="0x06A6" color="0xFFFF" comment=""/>
+        <item graphic="0x0678" color="0xFFFF" comment=""/>
+        <item graphic="0x0676" color="0xFFFF" comment=""/>
+        <item graphic="0x067E" color="0xFFFF" comment=""/>
+        <item graphic="0x06A6" color="0xFFFF" comment=""/>
+        <item graphic="0x083C" color="0xFFFF" comment=""/>
+        <item graphic="0x083A" color="0xFFFF" comment=""/>
+        <item graphic="0x0696" color="0xFFFF" comment=""/>
+        <item graphic="0x086F" color="0xFFFF" comment=""/>
+        <item graphic="0x06A8" color="0xFFFF" comment="wooden door"/>
+    </findlist>
+    <findlist name="closeDoors">
+        <item graphic="0x06AD" color="0xFFFF" comment=""/>
+        <item graphic="0x06A5" color="0xFFFF" comment=""/>
+        <item graphic="0x0677" color="0xFFFF" comment=""/>
+        <item graphic="0x067D" color="0xFFFF" comment=""/>
+        <item graphic="0x0675" color="0xFFFF" comment=""/>
+        <item graphic="0x06A5" color="0xFFFF" comment=""/>
+        <item graphic="0x083B" color="0xFFFF" comment=""/>
+        <item graphic="0x0839" color="0xFFFF" comment=""/>
+        <item graphic="0x0695" color="0xFFFF" comment=""/>
+        <item graphic="0x086E" color="0xFFFF" comment=""/>
+        <item graphic="0x06A7" color="0xFFFF" comment=""/>
+    </findlist>
+    <findlist name="otherActive">
+        <item graphic="0x1BBF" color="0xFFFF" comment=""/>
+        <item graphic="0x1090F" color="0xFFFF" comment=""/>
+        <item graphic="0x1091" color="0xFFFF" comment=""/>
+        <item graphic="0x1092" color="0xFFFF" comment=""/>
+        <item graphic="0x1093" color="0xFFFF" comment=""/>
+        <item graphic="0x1094" color="0xFFFF" comment=""/>
+        <item graphic="0x1095" color="0xFFFF" comment=""/>
+        <item graphic="0x373A" color="0xFFFF" comment="Rune gate"/>
+    </findlist>
+    <findlist name="shields">
+        <item graphic="0x1B72" color="0xFFFF" comment="Bronze Shield"/>
+        <item graphic="0x1B73" color="0xFFFF" comment="Buckler"/>
+        <item graphic="0x1B7B" color="0xFFFF" comment="Metal Shield"/>
+        <item graphic="0x1B74" color="0xFFFF" comment="Kite Shield"/>
+        <item graphic="0x1B78" color="0xFFFF" comment="Kite Shield"/>
+        <item graphic="0x1B76" color="0xFFFF" comment="Heater"/>
+        <item graphic="0x1B7A" color="0xFFFF" comment="Wooden Shield"/>
+    </findlist>
+    <findlist name="equipDenyItems"/>
+</data>
