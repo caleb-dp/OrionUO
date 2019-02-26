@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data version="1" size="70">
+    <hotkey type="3" action="4294967295" running_mode="true" key="81" modifiers="0" name="HidePlayer" external_code="HidePlayer(200, 1400);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="70" modifiers="0" name="SummonEthernalSpirit" external_code="CastSummonCreatureOrDefault(&quot;Death Vortex&quot;);"/>
+    <hotkey type="2" action="4294967295" running_mode="true" key="123" modifiers="0" name="rename" external_code="printTrotla(&quot;coze&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="122" modifiers="0" name="" external_code="Orion.Info();"/>
+    <hotkey type="2" action="0" running_mode="false" key="86" modifiers="0" name="MobKill" external_code=""/>
+    <hotkey type="2" action="4294967295" running_mode="false" key="67" modifiers="0" name="MobGo" external_code=""/>
+    <hotkey type="2" action="4294967295" running_mode="false" key="88" modifiers="0" name="MobCome" external_code=""/>
+    <hotkey type="2" action="0" running_mode="false" key="90" modifiers="0" name="MobStop" external_code=""/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="68" modifiers="0" name="" external_code="AttackTarget([&quot;lastattack&quot;, &quot;lastenemy&quot;]);"/>
+    <hotkey type="7" action="0" running_mode="false" key="83" modifiers="2" name="" external_code=""/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="83" modifiers="0" name="" external_code="CastSpellOrDefault(&quot;Magic Arrow&quot;, [&quot;laststatus&quot;,&quot;lastattack&quot;,&quot;lasttarget&quot;]);"/>
+    <hotkey type="2" action="0" running_mode="false" key="9" modifiers="0" name="SwitchWarModeOn" external_code=""/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="51" modifiers="8" name="" external_code="ShieldOfAncients();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="2" modifiers="1" name="" external_code="SelectNextTargetEnemy(800);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="83" modifiers="8" name="" external_code="CastSpellOrDefault(&quot;Harm&quot;, &quot;&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="49" modifiers="0" name="" external_code="CastSpell(&quot;Magic Arrow&quot;,[ &quot;self&quot; ]);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="65" modifiers="0" name="" external_code="CastSpell(&quot;Paralyze&quot;, [&quot;laststatus&quot;, &quot;lastattack&quot;, &quot;lastenemy&quot;, &quot;lasttarget&quot;]);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="65" modifiers="8" name="" external_code="CastSpell(&quot;Paralyze&quot;, [&quot;laststatus&quot;, &quot;lastattack&quot;, &quot;lastenemy&quot;, &quot;lasttarget&quot;]), true;"/>
+    <hotkey type="9" action="0" running_mode="false" key="83" modifiers="4" name="" external_code=""/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="87" modifiers="0" name="" external_code="EquipSlotWeapon(&quot;Ort mec&quot;, 0x0F60, 0x0B92,  true);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="87" modifiers="8" name="" external_code="UseTypeCust(0x1439, 0x0B25, [&quot;&quot;], &quot;[ cil ]&quot;, &quot;[ mystik ]&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="49" modifiers="8" name="" external_code="CastSpell(&quot;Magic Arrow&quot;, []);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="50" modifiers="0" name="" external_code="NahodStatyPresItemy();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="51" modifiers="0" name="" external_code="ShieldOfLastStand();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="52" modifiers="0" name="" external_code="ReflexRing();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="54" modifiers="0" name="" external_code="HodSvetloKad();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="69" modifiers="0" name="" external_code="UseMount();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="69" modifiers="8" name="" external_code="CastSpell(&quot;Teleport&quot;, [], true);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="82" modifiers="0" name="" external_code="UseTypeCust(0x0DF2, 0x0B55, [&quot;&quot;], &quot;[ target ]&quot;, &quot;[ resshulka ]&quot;, 0x0127,0x0127, &quot;Object&quot;)"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="68" modifiers="8" name="" external_code="CastSpell(&quot;Energy Field&quot;, []);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="220" modifiers="0" name="DrinkMr" external_code="DrinkPotion(&quot;Total Mana Refresh&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="186" modifiers="0" name="" external_code="DrinkPotion(&quot;Strength&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="8" modifiers="64" name="" external_code="DrinkPotion(&quot;Refresh&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="16" modifiers="64" name="" external_code="DrinkPotion(&quot;Heal&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="87" modifiers="4" name="UsumonLavaBomb" external_code="UsumonLavaBomb([]);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="1" modifiers="1" name="" external_code="SelectSpellNext([&quot;Magic Arrow&quot;]);"/>
+    <hotkey type="3" action="4294967295" running_mode="true" key="192" modifiers="0" name="" external_code="ShrinkPet([&quot;Pet Lvl 1&quot;, &quot;Pet Lvl 2&quot;, &quot;Pet Lvl 3&quot;, &quot;Pet Lvl 4&quot;, &quot;Pet Lvl 5&quot;]);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="70" modifiers="4" name="" external_code="CastSummonCreature(&quot;Dark Oclock&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="70" modifiers="8" name="" external_code="CastSummonCreature(&quot;Rat&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="65" modifiers="4" name="" external_code="UseLastUtiltityButton();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="66" modifiers="0" name="" external_code="TerminateAll();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="68" modifiers="2" name="" external_code="CastSpell(&quot;Energy Field&quot;, [&quot;self&quot;], true);"/>
+    <hotkey type="3" action="4294967295" running_mode="true" key="68" modifiers="4" name="" external_code="PoisEngage();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="53" modifiers="4" name="" external_code="DrinkPotion(&quot;Invisibility&quot;);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="55" modifiers="8" name="" external_code="GreatGoldRing();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="71" modifiers="0" name="" external_code="CastNecroSpell(&quot;SummonUndead&quot;, [&quot;self&quot;]);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="71" modifiers="8" name="" external_code="CastNecroSpell(&quot;SummonUndead&quot;, []);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="71" modifiers="4" name="" external_code="CastSummonCreature(&quot;Rat&quot;, [&quot;self&quot;]);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="74" modifiers="0" name="" external_code="UnEquipShieldAndWeapon();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="78" modifiers="0" name="" external_code="OpenDoor()"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="78" modifiers="4" name="" external_code="GuildRune();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="220" modifiers="8" name="" external_code="EquipSlotWeapon(&quot;Primary&quot;, 0x2D23, 0xFFFF, true);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="84" modifiers="0" name="" external_code="CastSpell(&quot;Paralyze Field&quot;, [], true);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="2" modifiers="5" name="" external_code="SelectNextPetLevel([&quot;Pet Lvl 1&quot;, &quot;Pet Lvl 2&quot;, &quot;Pet Lvl 3&quot;, &quot;Pet Lvl 4&quot;, &quot;Pet Lvl 5&quot;]);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="2" modifiers="9" name="" external_code="SwitchSlotWeapon();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="1" modifiers="9" name="" external_code="SwitchShield();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="89" modifiers="0" name="" external_code="LootGround();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="32" modifiers="0" name="" external_code="SnezSalat();"/>
+    <hotkey type="4" action="0" running_mode="false" key="112" modifiers="2" name="" external_code=""/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="32" modifiers="8" name="" external_code="UsePetLevelOrDefault([&quot;Pet Lvl 1&quot;, &quot;Pet Lvl 2&quot;, &quot;Pet Lvl 3&quot;, &quot;Pet Lvl 4&quot;, &quot;Pet Lvl 5&quot;]);"/>
+    <hotkey type="24" action="0" running_mode="false" key="81" modifiers="8" name="" external_code=""/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="186" modifiers="8" name="" external_code="UseTypeCust( 0xFFFF,  0x08A1,  [&quot;none&quot;], &quot;&quot;, &quot;[ verite ]&quot;, 0x0000, 0x08A1);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="32" modifiers="10" name="" external_code="UsePetLevelOrDefault([&quot;Pet Lvl 1&quot;, &quot;Pet Lvl 2&quot;, &quot;Pet Lvl 3&quot;, &quot;Pet Lvl 4&quot;, &quot;Pet Lvl 5&quot;], true);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="32" modifiers="4" name="" external_code="UseGoldenMedailon();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="79" modifiers="0" name="" external_code="OpravStaty();"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="220" modifiers="4" name="" external_code="EquipSlotWeapon(&quot;Secondary&quot;, 0x13B5, 0xFFFF, true);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="16" modifiers="72" name="" external_code="EquipSlotWeapon(&quot;Heal mec&quot;, 0x0F60, 0x0B59, true);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="8" modifiers="72" name="" external_code="EquipSlotWeapon(&quot;IJS Fork&quot;, 0x1404, 0x063E, true);"/>
+    <hotkey type="3" action="4294967295" running_mode="false" key="8" modifiers="68" name="" external_code="EquipSlotWeapon(&quot;Midnight Fork&quot;, 0x1404, 0x0B7F, true);"/>
+</data>
