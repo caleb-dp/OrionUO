@@ -3,7 +3,7 @@
 /*
 PoisEngage
 SwitchWeapon
-UseGoldenMedailon*/
+*/
 
 //Globals readonly
 var color_pureWhite = 0x0B1D;
@@ -48,8 +48,61 @@ var potionDef =
 //Globals readonly
 
 //---------------------------------------------------------------------------------------------
-//opravi staty a vrati veci na sebe
-function OpravStaty() {
+
+function UseGoldenMedailon() {
+  var currentEq = GetCurrentEquip();
+  var currentEqSerials = [];
+  for (var i = 0; i < currentEq.length; i++) {
+    currentEqSerials.push(currentEq[i].Serial());
+  }
+  if (currentEqSerials.length > 4)
+    Orion.SetGlobal("UseGoldenMedailon_CurrentEquip", Array_ToString(currentEqSerials));
+
+  var hasMedailon = Orion.Count(0x0FC7, 0x044C) > 0;
+
+  if (!hasMedailon) {
+    Orion.CharPrint(Player.Serial(), color_warning, "[ nemas medailon ]");
+    return;
+  }
+
+  Orion.ClearJournal();
+
+  Orion.UseType(0x0FC7, 0x044C);
+  Orion.Wait(250);
+
+  var on = Orion.InJournal("Citis se mnohem silnejsi!");
+  var off = Orion.InJournal("Berserk zrusen");
+  var cant = Orion.InJournal("Jsi stale prilis unaven od minuleho pouzit");
+
+  if (on) {
+    Orion.RemoveTimer("UseGoldenMedailon_Start");
+    Orion.SetTimer("UseGoldenMedailon_Start");
+    Orion.CharPrint(Player.Serial(), color_info, "[ berseker ON ]");
+  } else if (off) {
+
+    Orion.CharPrint(Player.Serial(), color_info, "[ berseker OFF ]");
+    var savedEquip = ToObjectList(Orion.Split(Orion.GetGlobal("UseGoldenMedailon_CurrentEquip"), ","));
+
+    for (var i = 0; i < savedEquip.length; i++) {
+      var curr = savedEquip[i];
+      if (curr.Container() == Orion.ObjAtLayer("Backpack").Serial()) {
+        Orion.UseObject(curr.Serial());
+        Orion.Wait(200);
+      }
+
+      Orion.SetGlobal("UseGoldenMedailon_CurrentEquip", "");
+    }
+
+  } else if (cant) {
+    Orion.Print("Bersker pred " + (Orion.Timer("UseGoldenMedailon_Start") / 1000) + "s");
+    Orion.SetGlobal("UseGoldenMedailon_CurrentEquip", "");
+  }
+}
+
+//---------------------------------------------------------------------------------------------
+
+function GetCurrentEquip() {
+
   var currentEq = [];
 
   if (Orion.ObjAtLayer("Arms") != null) currentEq.push(Orion.ObjAtLayer("Arms"));
@@ -66,6 +119,14 @@ function OpravStaty() {
   if (Orion.ObjAtLayer("LeftHand") != null) currentEq.push(Orion.ObjAtLayer("LeftHand"));
   if (Orion.ObjAtLayer("RightHand") != null) currentEq.push(Orion.ObjAtLayer("RightHand"));
 
+  return currentEq;
+
+}
+
+//---------------------------------------------------------------------------------------------
+//opravi staty a vrati veci na sebe
+function OpravStaty() {
+  var currentEq = GetCurrentEquip();
 
   Orion.CancelWaitGump();
   Orion.CancelWaitMenu();
