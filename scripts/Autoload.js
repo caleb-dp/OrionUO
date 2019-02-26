@@ -1,3 +1,4 @@
+
 'use strict';
 /*
 PoisEngage
@@ -1025,7 +1026,7 @@ function UseJewlery(title, graphic, color, layer) {
     var origY = selected.Y();
 
     Orion.ClearJournal();
-    //Orion.UseObject(selected.Serial());
+    Orion.UseObject(selected.Serial());
     Orion.Wait(250);
     if (Orion.InJournal("You must recharge it")) {
       outOfChargesArr.push(selected.Serial());
