@@ -49,6 +49,144 @@ var potionDef =
 
 //---------------------------------------------------------------------------------------------
 
+function RunScript(duration) {
+
+  if (Orion.TimerExists("RunScript_Timer")) {
+    Orion.RemoveTimer("RunScript_Timer");
+  }
+
+  if (duration > 0) {
+
+    Orion.SetTimer("RunScript_Timer");
+    Orion.SetGlobal("RunScript_Duration", duration);
+
+  }
+
+}
+
+//---------------------------------------------------------------------------------------------
+
+function CheckRunning() {
+  var result = false;
+
+  var duration = Orion.GetGlobal("RunScript_Duration");
+
+  Orion.Print("CheckRunning " + duration + " /  " + Orion.Timer("RunScript_Timer"));
+
+  if (duration != "" && duration > 0) {
+    if (Orion.TimerExists("RunScript_Timer")) {
+      var timer = Orion.Timer("RunScript_Timer");
+      if (timer < duration) {
+        result = true;
+      }
+    }
+  }
+
+  if (!result) {
+    Orion.SetGlobal("RunScript_Duration", "");
+    if (Orion.TimerExists("RunScript_Timer")) {
+      Orion.RemoveTimer("RunScript_Timer");
+    }
+
+  }
+
+  return result;
+
+}
+
+//---------------------------------------------------------------------------------------------
+
+function AutoHeal() {
+
+  var healSkillValue = Orion.SkillValue("Healing");
+
+  while (true) {
+
+    if (!CheckRunning()) {
+
+      var char = Player;
+      var hasBandage = Orion.Count("bandage") > 0;
+
+
+
+      if (hasBandage && (char.Hits() < char.MaxHits() || char.Poisoned() && healSkillValue >= 850)) {
+
+        Orion.ClearJournal();
+        //Orion.Print("" + char.Hits() + " / " +  char.MaxHits() + " - " +  char.Poisoned());
+        Orion.WaitTargetObject(char.Serial());
+        Orion.UseType("bandage");
+        Orion.CharPrint(char.Serial(), GetPrintAlieColorByHits(char.Serial()), "[ banding ]");
+        var sychr = 0;
+        while (sychr < 2500 && !Orion.InJournal("You put the bloody bandagess in your pack|You apply the bandages, but they barely help")) {
+          Orion.Wait(25);
+          sychr += 25;
+        }
+
+      }
+    }
+
+
+    //        hInfo.Used = Journal.WaitForText(true, 3500, "You must be able to reach the target", "Chces vytvorit mumii?", "You put the bloody bandagess in your pack.", "You apply the bandages, but they barely help.", "Your target is already fully healed", "Vylecil jsi otravu!");
+    //  if (Journal.Contains(true, "Nemuzes pouzit bandy na summona!"))
+    //   hInfo.TryHealSummon = true;
+    // if (Journal.Contains(true, "You must be able to reach the target"))
+    //   hInfo.CantReach = true;
+    // if (Journal.Contains(true, "Chces vytvorit mumii?") || Journal.Contains(true, "Your target is already fully healed"))
+    //  hInfo.FullHealed = true;
+    // if (Journal.Contains(true, "Vylecil jsi otravu!"))
+    //   hInfo.CuredPoison = true;
+
+
+    Orion.Wait(50);
+  }
+
+}
+
+//---------------------------------------------------------------------------------------------
+//vypisuje hity -+ vice jak 2
+function CharacterHits() {
+
+  var prevList = [];
+  var prevState = [];
+  while (true) {
+
+    var list = GetCharacterList(20, true);
+
+
+    for (var i = 0; i < list.length; i++) {
+      var current = list[i];
+
+      var found = false;
+      for (var v = 0; v < prevState.length; v++) {
+
+
+        var prev = prevState[v];
+        //Orion.Print("prev " +prev.Serial + " / " + current.Serial() + " - " + (prev.Serial === current.Serial()));
+        if (prev.Serial === current.Serial()) {
+          found = true;
+
+          //GetPrintEnemyColorByHits, GetPrintAlieColorByHits
+
+          var diff = current.Hits() - prev.Hits;
+          if (diff >= 2 || diff <= -1) {
+            Orion.CharPrint(current.Serial(), IsEnemy(current) ? GetPrintEnemyColorByHits(current.Serial()) : GetPrintAlieColorByHits(current.Serial()), (diff > 0 ? "+" : "") + diff + "");
+          }
+          prev.Hits = current.Hits();
+        }
+      }
+
+      if (!found) {
+        prevState.push({ Serial: current.Serial(), Hits: current.Hits() });
+      }
+
+    }
+    Orion.Wait(50);
+  }
+
+}
+
+//---------------------------------------------------------------------------------------------
+
 function UseGoldenMedailon() {
   var currentEq = GetCurrentEquip();
   var currentEqSerials = [];
@@ -110,7 +248,6 @@ function GetCurrentEquip() {
   if (Orion.ObjAtLayer("Gloves") != null) currentEq.push(Orion.ObjAtLayer("Gloves"));
   if (Orion.ObjAtLayer("MidTorso") != null) currentEq.push(Orion.ObjAtLayer("MidTorso"));
   if (Orion.ObjAtLayer("InnerTorso") != null) currentEq.push(Orion.ObjAtLayer("InnerTorso"));
-  if (Orion.ObjAtLayer("Legs") != null) currentEq.push(Orion.ObjAtLayer("Legs"));
   if (Orion.ObjAtLayer("Pants") != null) currentEq.push(Orion.ObjAtLayer("Pants"));
   if (Orion.ObjAtLayer("Shoes") != null) currentEq.push(Orion.ObjAtLayer("Shoes"));
   if (Orion.ObjAtLayer("Shirt") != null) currentEq.push(Orion.ObjAtLayer("Shirt"));
@@ -171,7 +308,7 @@ function OpravStaty() {
 //utok na zvolene targety zleva do prava nebo nalezeny nejblizsi enemy
 function AttackTarget(targets) {
   EnsureWarMode();
-
+  RunScript(10000);
   var target = ParseTargets(targets);
   var enemy = null;
   if (target.Success && target.Object != null) {
@@ -505,8 +642,15 @@ function DrinkPotion(potionName) {
 
     if (!drinkSuccess && foundKades.length > 0 && HasEmptyPotion()) {
 
+
       var fk = foundKades[0];
       var fillResult = FillPotionFromKad(fk.Quality);
+
+      if (fillResult == "Error_InUse" && Orion.Count(fk.Quality.Graphic, fk.Quality.Color) == 0) {
+        SwitchWarModeOn();
+        Orion.Wait(100);
+        fillResult = FillPotionFromKad(fk.Quality);
+      }
       //todo optional prepnuti waru pokud 0 jina
 
       var c = Orion.Count(fk.Quality.Graphic, fk.Quality.Color);
@@ -1974,7 +2118,10 @@ function GetCurrentMobs(distance) {
 //Player Utils
 
 //---------------------------------------------------------------------------------------------
-
+function SwitchWarRunOff() {
+  SwitchWarModeOn();
+  RunScript(0);
+}
 //Non-Exec
 //prepne war mod, pokud byl peace zustane war pokud ne prene z peace zas do war vysledek je tedy vzdy war
 function SwitchWarModeOn() {
@@ -2243,7 +2390,7 @@ function SayWithColor(text, color) {
 
 //---------------------------------------------------------------------------------------------
 
-//Non-Exec
+//Non-Exec 
 //vraci jedu s 6 barev ktera reprezentuje uroven zraneni charakteru po 20% nebo vychozi. Zelena pro kamose
 //serial - datovy typ serial, id chrakteru       
 function GetPrintAlieColorByHits(serial) {
