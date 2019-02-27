@@ -110,6 +110,7 @@ function GetCurrentEquip() {
   if (Orion.ObjAtLayer("Gloves") != null) currentEq.push(Orion.ObjAtLayer("Gloves"));
   if (Orion.ObjAtLayer("MidTorso") != null) currentEq.push(Orion.ObjAtLayer("MidTorso"));
   if (Orion.ObjAtLayer("InnerTorso") != null) currentEq.push(Orion.ObjAtLayer("InnerTorso"));
+  if (Orion.ObjAtLayer("Legs") != null) currentEq.push(Orion.ObjAtLayer("Legs"));
   if (Orion.ObjAtLayer("Pants") != null) currentEq.push(Orion.ObjAtLayer("Pants"));
   if (Orion.ObjAtLayer("Shoes") != null) currentEq.push(Orion.ObjAtLayer("Shoes"));
   if (Orion.ObjAtLayer("Shirt") != null) currentEq.push(Orion.ObjAtLayer("Shirt"));
