@@ -71,7 +71,7 @@ function CheckRunning() {
 
   var duration = Orion.GetGlobal("RunScript_Duration");
 
-  Orion.Print("CheckRunning " + duration + " /  " + Orion.Timer("RunScript_Timer"));
+  //Orion.Print("CheckRunning " + duration + " /  " +  Orion.Timer("RunScript_Timer"));
 
   if (duration != "" && duration > 0) {
     if (Orion.TimerExists("RunScript_Timer")) {
@@ -109,7 +109,7 @@ function AutoHeal() {
 
 
 
-      if (hasBandage && (char.Hits() < char.MaxHits() || char.Poisoned() && healSkillValue >= 850)) {
+      if (!Orion.Dead && hasBandage && (char.Hits() < char.MaxHits() || char.Poisoned() && healSkillValue >= 850)) {
 
         Orion.ClearJournal();
         //Orion.Print("" + char.Hits() + " / " +  char.MaxHits() + " - " +  char.Poisoned());
@@ -144,8 +144,13 @@ function AutoHeal() {
 
 //---------------------------------------------------------------------------------------------
 //vypisuje hity -+ vice jak 2
-function CharacterHits() {
+function CharacterHitsRun() {
+  CharacterHits();
+}
 
+function CharacterHits(printCritical) {
+
+  if (printCritical === undefined) printCritical = 0.25;
   var prevList = [];
   var prevState = [];
   while (true) {
@@ -159,17 +164,24 @@ function CharacterHits() {
       var found = false;
       for (var v = 0; v < prevState.length; v++) {
 
-
         var prev = prevState[v];
-        //Orion.Print("prev " +prev.Serial + " / " + current.Serial() + " - " + (prev.Serial === current.Serial()));
         if (prev.Serial === current.Serial()) {
           found = true;
 
-          //GetPrintEnemyColorByHits, GetPrintAlieColorByHits
-
           var diff = current.Hits() - prev.Hits;
           if (diff >= 2 || diff <= -1) {
-            Orion.CharPrint(current.Serial(), IsEnemy(current) ? GetPrintEnemyColorByHits(current.Serial()) : GetPrintAlieColorByHits(current.Serial()), (diff > 0 ? "+" : "") + diff + "");
+
+            var text = (diff > 0 ? "+" : "") + diff + "";
+            if (current.Serial() == Player.Serial()) {
+              text = text + " [" + current.Hits() + "]";
+
+
+              if (current.MaxHits() > 0 && diff < 0 && ((diff / current.MaxHits() * -1) > printCritical)) {
+                text += " CRITICAL!";
+              }
+            }
+
+            Orion.CharPrint(current.Serial(), IsEnemy(current) ? GetPrintEnemyColorByHits(current.Serial()) : GetPrintAlieColorByHits(current.Serial()), text);
           }
           prev.Hits = current.Hits();
         }
@@ -188,6 +200,9 @@ function CharacterHits() {
 //---------------------------------------------------------------------------------------------
 
 function UseGoldenMedailon() {
+
+  RunScript(2500);
+
   var currentEq = GetCurrentEquip();
   var currentEqSerials = [];
   for (var i = 0; i < currentEq.length; i++) {
@@ -264,6 +279,9 @@ function GetCurrentEquip() {
 //---------------------------------------------------------------------------------------------
 //opravi staty a vrati veci na sebe
 function OpravStaty() {
+
+  RunScript(5000);
+
   var currentEq = GetCurrentEquip();
 
   Orion.CancelWaitGump();
@@ -328,7 +346,7 @@ function AttackTarget(targets) {
 //---------------------------------------------------------------------------------------------
 
 function EquipSlotWeapon(nameKey, graphic, color, ensureShield) {
-
+  RunScript(1500);
   if (graphic === undefined) graphic = 0xFFFF;
   if (color === undefined) color = 0xFFFF;
   if (ensureShield === undefined) ensureShield = true;
@@ -375,7 +393,7 @@ function EquipSlotWeapon(nameKey, graphic, color, ensureShield) {
 //---------------------------------------------------------------------------------------------
 //prepina stity, nebere ty ze zakazaneho listu
 function SwitchShield() {
-
+  RunScript(1000);
   if (HasEquipedDenyItem()) return;
 
   var shields = SortObjectBySerialAsc(ToObjectList(Orion.FindList("shields", "backpack")));
@@ -433,6 +451,7 @@ function HasEquipedDenyItem() {
 //---------------------------------------------------------------------------------------------
 //vendeta s nabijenim
 function EquipVendeta() {
+  RunScript(1000);
   var itmCharged = ToObjectList(Orion.Split(Orion.FindType(0x27AB, 0x0B4F, "self"), ","));
   var itm = ToObjectList(Orion.Split(Orion.FindType(0x27AB, 0x0B2D, "self"), ","));
   var deadlyKad = ToObjectList(Orion.Split(Orion.FindType(0x1843, 0x08A2, "self"), ","));
@@ -465,7 +484,7 @@ function EquipVendeta() {
 //---------------------------------------------------------------------------------------------
 //rozsireny usetype ;]     
 function UseTypeCust(gra, c, targets, targetText, playerText, targetTextColor, playerTextColor, targetTypeStrict) {
-
+  RunScript(1000);
   if (gra === undefined) gra = 0xFFFF;
   if (c === undefined) c = 0xFFFF;
   if (targets === undefined) targets = [];
@@ -579,6 +598,7 @@ function HasPotion(potionQuality) {
 //potionQuality - datovy typ PotionQuality, kvalita od potionDef       
 //naplni lahve z kade a vrati string OK pokud probehlo uspesne, pripadne Error_XYZ
 function FillPotionFromKad(potionQuality) {
+
   if (!HasKad(potionQuality)) {
     Orion.Print("Nemas kad");
     return "Error_Kad";
@@ -588,7 +608,7 @@ function FillPotionFromKad(potionQuality) {
     return "Error_Empty";
   }
   //Pri praci s nadobou nemuzes delat neco jineho
-
+  RunScript(1000);
   Orion.ClearJournal();
   Orion.WaitTargetType(itemType_emptyPotion.Graphic);
   Orion.UseType(graphic_kad, potionQuality.KadColor);
@@ -608,7 +628,7 @@ function FillPotionFromKad(potionQuality) {
 //vypije prislusnou lahev v kvalite kterou nalezne jako prvni, pripadne si nalije z kade. Pri znovuzmacknuti prelije lahev
 //Hotkey - External Code >>> DrinkPotion("Total Mana Refresh");
 function DrinkPotion(potionName) {
-
+  RunScript(1500);
   var potion = FindPotionDef(potionName);
 
   if (potion != null) {
@@ -677,7 +697,7 @@ function DrinkPotion(potionName) {
 //pouzije existujici nebo vynda z kade lavabomu v rezimu zniceni zdi nebo zniceni summona.
 //Hotkey - External Code >>> UsumonLavaBomb([]);
 function UsumonLavaBomb(targets) {
-
+  RunScript(1500);
 
   var lavaObj = null;
   var lavaDef = FindPotionDef("Lava Bomb");
@@ -778,6 +798,7 @@ function ShrinkPet(defaultLevels) {
 
 //vyhodi klamaka vybraneho levelu nebo vychozi, pripadne prvni nalezeny level. pokud UseAim = true tak vyhodi tercik a klamaka vyhodi na dane misto
 function UsePetLevelOrDefault(defaultLevels, useAim) {
+
   if (useAim === undefined) useAim = false;
 
   var levels = [Orion.GetGlobal("PetMaster.PetLevel")];
@@ -888,7 +909,7 @@ function OpenDoor() {
 
 //sni salat pokud je to nutne ;]
 function SnezSalat() {
-
+  RunScript(500);
   var salat = GetFindObject(Orion.FindType(0x09EC, 0x06AB));
   if (salat == null) {
     Orion.CharPrint(Player.Serial(), color_warning, "[ neni salat ]");
@@ -909,14 +930,34 @@ function SnezSalat() {
   }
 }
 
+function SnezBandu() {
 
+  var salat = GetFindObject(Orion.FindType("0x0E20|0x0E22", 0xFFFF));
+  if (salat == null) {
+    Orion.CharPrint(Player.Serial(), color_warning, "[ neni banda ]");
+    return;
+  }
+
+  var dmg = Player.MaxHits() - Player.Hits();
+  var hasInjury = dmg > 0;
+
+  if (dmg > 5) {
+    var startHits = Player.Hits();
+    Orion.UseObject(salat.Serial());
+    Orion.Wait(250);
+    var endHits = Player.Hits();
+    Orion.CharPrint(Player.Serial(), GetPrintAlieColorByHits(Player.Serial()), "[ banda +" + (endHits - startHits) + " ]");
+  } else {
+    Orion.CharPrint(Player.Serial(), color_ok, "[ nemusis bandu ]");
+  }
+}
 //---------------------------------------------------------------------------------------------
 
 //using UseMount.js
 var darkSkull = { Graphic: 0x1F0B, Color: 0x0485 };
 
 function UseDarkSkull() {
-
+  RunScript(1000);
   var skull = Orion.FindObject(Orion.FindType(darkSkull.Graphic, darkSkull.Color, "self"));
   var hat = Orion.ObjAtLayer("Helmet");
   var mount = Orion.ObjAtLayer("Mount");
@@ -1083,6 +1124,7 @@ function UseMount() {
 //alertTime - datovy typ int, hranic po ktere zacne vypisovat cervene odpocitavani
 //Hotkey - External Code >>> HidePlayer(250, 1500);
 function HidePlayer(printStep, alertTime) {
+  RunScript(3000);
   if (printStep == undefined) printStep = 200;
   if (alertTime == undefined) alertTime = 1400;
 
@@ -1115,7 +1157,7 @@ function HidePlayer(printStep, alertTime) {
 
   var sychr = 0;
 
-  while (!(Orion.InJournal('You have hidden yourself well') || Orion.InJournal('t seem to hide here'))) {
+  while (sychr < 3000 && !(Orion.InJournal('You have hidden yourself well') || Orion.InJournal('t seem to hide here'))) {
     ms = ms + hidStepMs;
     sychr = sychr + hidStepMs;
 
@@ -1459,7 +1501,7 @@ function GetSpellScroll(spellName) {
 //Hotkey - External Code >>> CastSpell("Harm", ["lastattack", "lasttarget"], false);
 function CastSpell(spellName, targets, useScroll) {
   EnsureWarMode();
-
+  RunScript(5500);
   if (useScroll === undefined) useScroll = false;
 
   var canCastScroll = Orion.Timer("Magery.ScrollTimer") > GetScrollTimeout();
@@ -1500,7 +1542,7 @@ function CastSpell(spellName, targets, useScroll) {
 //Hotkey - External Code >>> CastSummonCreature("Horse", ["self"], false); 
 function CastSummonCreature(summonName, targets) {
   EnsureWarMode();
-
+  RunScript(5500);
   Orion.CharPrint(Player.Serial(), color_pureWhite, "[ " + summonName + " ]");
   Orion.CancelWaitMenu();
   TryWaitTargetObject(targets);
@@ -1904,24 +1946,48 @@ function SortObjectByHitsAsc(objectArray) {
 //   sbarXMax - datovy typ int -souradnice max x kde se ma zobrazovat status bar - 300
 //   sbarY - datovy typ int -souradnice min y kde se ma zobrazovat status bar - 150
 //   sbarYMax - datovy typ int -souradnice max y kde se ma zobrazovat status bar - 600
-function SelectNextTargetEnemy(distance, resetTime, printHits, clearHits, closeStatusBar, showTrack, sbarX, sbarXMax, sbarY, sbarYMax) {
+function SelectNextTargetEnemy(distance, resetTime, printHits, clearHits, closeStatusBar, showTrack, sbarX, sbarY, sbarYMax) {//sbarXMax, sbarY, sbarYMax) {
 
   if (!distance) distance = 30;
   if (!resetTime) resetTime = 800;
-  if (printHits == undefined) printHits = true;
+  if (printHits == undefined) printHits = false;
   if (clearHits == undefined) clearHits = false;
-  if (closeStatusBar == undefined) closeStatusBar = true;
-  if (!sbarX) sbarX = 150;
-  if (!sbarXMax) sbarXMax = 300;
-  if (!sbarY) sbarY = 150;
-  if (!sbarYMax) sbarYMax = 600;
+  if (closeStatusBar == undefined) closeStatusBar = false;
+  if (!sbarX) sbarX = 220;
+  if (!sbarY) sbarY = 100;
+  if (!sbarYMax) sbarYMax = 850;
+
+  //if (!sbarXMax) sbarXMax = 300;
+  //if (!sbarYMax) sbarYMax = 600;
   if (showTrack == undefined) showTrack = true;//Neni podpora?
 
   var charList = GetCharacterList(distance, false);
   var enemyList = GetAllEnemyList(charList);
 
-  enemyList = SortObjectByDistanceAsc(enemyList);
 
+  var summons = ToObjectList(Orion.FindList("summons", ground, '', distance));
+  //Todo Friends + Konfliktni monstra a sumy ari elm a earth pod.
+
+  var filtered = [];
+
+  for (var i = 0; i < enemyList.length; i++) {
+    var isSumm = false;
+
+    for (var s = 0; s < summons.length; s++) {
+      if (summons[s].Serial() == enemyList[i].Serial()) {
+        isSumm = true;
+        break;
+      }
+    }
+
+    if (!isSumm) {
+      filtered.push(enemyList[i]);
+    }
+
+  }
+
+  enemyList = filtered;
+  enemyList = SortObjectByDistanceAsc(enemyList);
 
   var lastEnemy = Orion.GetGlobal("SelectNextTargetEnemy_Last");
   var lastTime = Orion.GetGlobal("SelectNextTargetEnemy_Last_Time");
@@ -1940,6 +2006,7 @@ function SelectNextTargetEnemy(distance, resetTime, printHits, clearHits, closeS
   if (lastEnemy && lastEnemy != "") {
     for (var i = 0; i < enemyList.length; i++) {
       var obj = enemyList[i];
+
       if (obj.Serial() == lastEnemy && i < enemyList.length - 1) {
         index = i + 1;
         break;
@@ -1952,11 +2019,29 @@ function SelectNextTargetEnemy(distance, resetTime, printHits, clearHits, closeS
     var prevObj = Orion.FindObject(lastEnemy);
     var obj = enemyList[index];
     Orion.SetGlobal("SelectNextTargetEnemy_Last", obj.Serial());
-
+    Orion.ClientLastAttack(obj.Serial());
     if (printHits)
       PrintCharacterHitsOver(obj.Serial());
 
-    Orion.ShowStatusbar(obj.Serial(), Orion.Random(sbarX, sbarXMax), Orion.Random(sbarY, sbarYMax));
+    var lastY = Orion.GetGlobal("SelectNextTargetEnemy_StatusbarNext_Y");
+    if (lastY == "")
+      lastY = sbarY;
+
+
+    lastY = lastY | 0;
+    if (lastY >= sbarYMax)
+      lastY = sbarY;
+
+    //	Orion.Print(sbarX + " / " + sbarY + " / " + lastY + " / " + Orion.GetGlobal("SelectNextTargetEnemy_StatusbarLast_Y"));
+
+
+
+
+
+
+    Orion.ShowStatusbar(obj.Serial(), sbarX, lastY);
+    Orion.SetGlobal("SelectNextTargetEnemy_StatusbarNext_Y", lastY + 65);
+    Orion.TargetSystemSerial(obj.Serial());
 
     if (showTrack) {
 
@@ -2397,21 +2482,22 @@ function GetPrintAlieColorByHits(serial) {
   var c = 0x023b;
 
   var mobObj = Orion.FindObject(serial);
-  var h = mobObj.Hits();
-  var mh = mobObj.MaxHits();
-  var perc = h / mh;
+  if (mobObj != null) {
+    var h = mobObj.Hits();
+    var mh = mobObj.MaxHits();
+    var perc = h / mh;
 
-  if (perc >= 0.8)
-    c = 0x003e;
-  else if (perc >= 0.6)
-    c = 0x003f;
-  else if (perc >= 0.4)
-    c = 0x0040;
-  else if (perc >= 0.2)
-    c = 0x0041;
-  else if (perc >= 0.1)
-    c = 0x0042;
-
+    if (perc >= 0.8)
+      c = 0x003e;
+    else if (perc >= 0.6)
+      c = 0x003f;
+    else if (perc >= 0.4)
+      c = 0x0040;
+    else if (perc >= 0.2)
+      c = 0x0041;
+    else if (perc >= 0.1)
+      c = 0x0042;
+  }
   return c;
 }
 
@@ -2425,21 +2511,22 @@ function GetPrintEnemyColorByHits(serial) {
   var c = 0x021d;
 
   var mobObj = Orion.FindObject(serial);
-  var h = mobObj.Hits();
-  var mh = mobObj.MaxHits();
-  var perc = h / mh;
+  if (mobObj != null) {
+    var h = mobObj.Hits();
+    var mh = mobObj.MaxHits();
+    var perc = h / mh;
 
-  if (perc >= 0.8)
-    c = 0x0025;
-  else if (perc >= 0.6)
-    c = 0x0026;
-  else if (perc >= 0.4)
-    c = 0x0027;
-  else if (perc >= 0.2)
-    c = 0x0028;
-  else if (perc >= 0.1)
-    c = 0x0029;
-
+    if (perc >= 0.8)
+      c = 0x0025;
+    else if (perc >= 0.6)
+      c = 0x0026;
+    else if (perc >= 0.4)
+      c = 0x0027;
+    else if (perc >= 0.2)
+      c = 0x0028;
+    else if (perc >= 0.1)
+      c = 0x0029;
+  }
   return c;
 }
 
