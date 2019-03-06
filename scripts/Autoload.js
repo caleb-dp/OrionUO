@@ -1802,6 +1802,8 @@ function ParseTarget(target) {
 
     } else if (target == "lastenemy") {
       result.Serial = ClientLastEnemy();
+    } else if (target == "laststatus") {
+      result.Serial = Orion.FindObject(laststatus) != null ? Orion.FindObject(laststatus).Serial() : 0;
     }
 
 
